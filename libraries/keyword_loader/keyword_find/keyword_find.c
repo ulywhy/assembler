@@ -1,8 +1,8 @@
 
 /*
- * search keyword in table, returns 1 or 0 if keyword is in the table or not
+ * search keyword in table, returns the keyword if it is found or NULL otherwise
  */
-int keyword_find ( KeywordTable table, char * keyword )
+Keyword_t * keyword_find ( KeywordTable table, char * keyword )
 {
-  return (NULL == tree_find( table, keyword, (COMPARE_FUNC) strcasecmp ) );
+  return tree_find( table, keyword, (COMPARE_FUNC) keyword_cmp );
 }

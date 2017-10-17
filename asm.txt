@@ -3,8 +3,8 @@ INCLUDE Irvine32.inc
 
 
 .data==? <<
-string1 BYTE MAX+1 DUP (?)  
-string2 BYTE MAX+1 DUP (?)  
+string1 BYTE MAX+1 DUP (?)
+string2 BYTE MAX+1 DUP (?)
 
 
 .data
@@ -43,7 +43,7 @@ SHRINK: NOP
     inc eax
   .ENDIF
   loop SHRINK
-  
+
   mov spaces, eax
   mov ecx, len
   sub ecx, eax
@@ -60,15 +60,15 @@ REVERSE: NOP
   mov string1[esi], 0
   mov string2[esi], 0
 
-  INVOKE Str_compare, ADDR string1, ADDR string2  ;returns ZF = 1 if strings are equal  
-  
+  INVOKE Str_compare, ADDR string1, ADDR string2  ;returns ZF = 1 if strings are equal
+
   .IF ZERO?
     mov edx, OFFSET equal
   .ELSE
     mov edx, OFFSET not_equal
   .ENDIF
   call WriteString
-  
+
   mov edx, OFFSET string1
   call WriteString
   mov edx, OFFSET nwln

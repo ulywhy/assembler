@@ -61,7 +61,7 @@ int main ( void ){
   char * nombre_entrada = NULL;
 
   KeywordTable tabla_de_palabras_res = NULL;
-
+  Keyword_t * keyword = NULL;
   BinaryTree * tabla_de_simbolos = NULL;
 
   Identificador * identificador_ptr;
@@ -93,7 +93,8 @@ int main ( void ){
       {
         case IDENTIFICADOR:
           //es palabra reservada?
-          if( !keyword_find( tabla_de_palabras_res, token-> value) )
+          keyword = keyword_find( tabla_de_palabras_res, token-> value );
+          if( NULL != keyword )
           {
             tipo_token = "palabra reservada";
           }else{

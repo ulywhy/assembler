@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <string.h>
-#include <ctype.h> //keyword_load (tolower)
+#include <ctype.h> //keyword_load (tolower, iscntrl)
 
 #include "../data_type.h"
 #include "../file_open.c"
@@ -13,13 +13,13 @@
 typedef BinaryTree * KeywordTable;
 
 typedef enum keyword_type_enum {
-  REGISTER = 'r',
-  OPERATOR = 'o',
-  DIRECTIVE = 'd',
+  REGISTER,
+  OPERATOR,
+  DIRECTIVE,
 } KeywordType;
 
 typedef enum num_of_operands_enum {
-  NONE = 0,
+  NONE,
   IMEDIATE,
   DEST_AND_SOURCE,
 }NumOfOperands;
@@ -28,7 +28,7 @@ typedef struct keyword_struct {
   string value;
   NumOfOperands num_of_operands;
   KeywordType type;
-}Keyword;
+}Keyword_t;
 
 /*
  * load keyword table into a binary ordered tree
@@ -38,17 +38,22 @@ KeywordTable keyword_load ( char * filename );
 /*
  * search keyword in table, returns 1 or 0 if keyword is in the table or not
  */
-int keyword_find ( KeywordTable table, char * keyword );
+Keyword_t * keyword_find ( KeywordTable table, char * keyword );
 
 /*
- * free allocated memory for the tree
+ * free allocated memory for the keyword-table
  */
-void keyword_free ( KeywordTable table );
+void keyword_table_free ( KeywordTable table );
+
+/*
+ * free allocated memory for the keyword
+ */
+void keyword_free ( Keyword_t * table );
 
 /*
  * print an element of keyword-table
  */
-void keyword_print_row( Keyword * keyword );
+void keyword_print_row( Keyword_t * keyword );
 
 /*
  * print the entire keyword-table
@@ -57,12 +62,12 @@ void keyword_print( KeywordTable table );
 /*
  *  compare a string and a keyword struct
  */
-int keyword_cmp( char * s1, Keyword * k1 );
+int keyword_cmp( char * s1, Keyword_t * k1 );
 
 /*
  *  compare between keyword structs
  */
-int key_2_key_cmp( Keyword * k1, Keyword * k2 );
+int key_2_key_cmp( Keyword_t * k1, Keyword_t * k2 );
 
 #include "keyword_cmp/keyword_cmp.c"
 #include "keyword_print/keyword_print.c"

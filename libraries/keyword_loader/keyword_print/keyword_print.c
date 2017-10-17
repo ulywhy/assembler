@@ -4,9 +4,9 @@
 /*
  * print an element of keyword-table
  */
-void keyword_print_row( Keyword * keyword )
+void keyword_print_row( Keyword_t * keyword )
 {
-  printf("|%-50s, t: %-5c, n: %-5d\n", keyword-> value, keyword-> type, keyword-> num_of_operands );
+  printf("|%-45s, t: %-5d, n: %-5d\n", keyword-> value, keyword-> type, keyword-> num_of_operands );
   return;
 }
 
@@ -17,7 +17,7 @@ void keyword_print( KeywordTable table )
 {
   char * keyword_title = "KEYWORD--TABLE";
   int index, title_start = KEYWORD_PRINT_WIDTH/2 - strlen(keyword_title)/2;
-
+  char annotations [ KEYWORD_PRINT_WIDTH ];
   /*HEADER*/
   printf("\n\n");
 
@@ -28,6 +28,10 @@ void keyword_print( KeywordTable table )
   for( index += strlen( keyword_title ); index < KEYWORD_PRINT_WIDTH; index++ ) printf( "-" );
 
   printf("\n");
+  /*ANNOTATIONS*/
+  sprintf( annotations, "  tipo: %d=operador %d=directiva %d=registro \n", OPERATOR, DIRECTIVE, REGISTER );
+
+  printf( "%s", annotations );
 
   /*BODY*/
   tree_map( table, (FUNCTION) keyword_print_row );

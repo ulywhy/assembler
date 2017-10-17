@@ -1,4 +1,4 @@
-void keyword_free( Keyword * keyword )
+void keyword_free( Keyword_t * keyword )
 {
   free( keyword-> value );
   free( keyword );
@@ -7,7 +7,7 @@ void keyword_free( Keyword * keyword )
 /*
  * free allocated memory for the tree
  */
-void Keyword_table_free ( KeywordTable table )
+void keyword_table_free ( KeywordTable table )
 {
   tree_free( table, (FREE_FUNC) keyword_free );
   return;
