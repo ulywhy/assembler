@@ -1,0 +1,83 @@
+
+INCLUDE Irvine32.inc
+
+
+.data==? <<
+string1 BYTE MAX+1 DUP (?)  
+string2 BYTE MAX+1 DUP (?)  
+
+
+.data
+1110010B, 111b
+
+157o, 777o
+askSentence  BYTE "Please enter the sentence    ",0
+not_equal  BYTE "The string is not a palindrome",0dh,0ah,0
+equal    BYTE "The string is a palindrome",0dh,0ah,0
+nwln BYTE 0dh,0ah,0
+spaces  DWORD 0
+len   DWORD 0
+MAX = 500
+
+.code
+main PROC
+
+  mov edx, OFFSET askSentence
+  call WriteString
+
+  mov edx, OFFSET string1
+  mov ecx, MAX
+  call ReadString   ;eax has the total of read chacters returned by ReadString
+
+  mov ecx, eax
+  mov len, eax
+  mov ebx, 0
+  mov eax, 0
+
+SHRINK: NOP
+  mov bl, string1[ecx - 1]
+
+  .IF bx != 32    ; 32 = space (ASCII)
+    push bx     ;save in heap
+  .ELSE
+    inc eax
+  .ENDIF
+  loop SHRINK
+  
+  mov spaces, eax
+  mov ecx, len
+  sub ecx, eax
+  mov esi, 0
+
+REVERSE: NOP
+  pop bx        ;get from heap
+  mov string2[ecx-1], bl
+  mov string1[esi], bl
+  inc esi
+  loop REVERSE
+
+  ;null terminate reversed string without spaces
+  mov string1[esi], 0
+  mov string2[esi], 0
+
+  INVOKE Str_compare, ADDR string1, ADDR string2  ;returns ZF = 1 if strings are equal  
+  
+  .IF ZERO?
+    mov edx, OFFSET equal
+  .ELSE
+    mov edx, OFFSET not_equal
+  .ENDIF
+  call WriteString
+  
+  mov edx, OFFSET string1
+  call WriteString
+  mov edx, OFFSET nwln
+  call WriteString
+  mov edx, OFFSET string2
+  call WriteString
+  mov edx, OFFSET nwln
+  call WriteString
+
+   exit
+main ENDP
+END main
