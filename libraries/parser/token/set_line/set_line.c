@@ -1,6 +1,6 @@
 string set_line( string line )
 {
-  char * new_line_ptr;
+  char * new_line_ptr = NULL;
  /* overwrite NEW-LINE char if any */
   /* find NEW-LINE char */
   new_line_ptr = index( line, '\n' );

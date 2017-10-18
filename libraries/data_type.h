@@ -2,18 +2,22 @@
 #define DATOS_HEADER
 
 typedef char* string;
-typedef short int bool;
 
-/*
- * CONSTANTES
- */
-//BOOLEAN
-#define TRUE  1
-#define FALSE 0
+void clear( void ){
+  printf( "\033[2J\033[;H" );
+  return;
+}
 
 /*
  * ENUM
  */
+
+ //BOOLEAN
+ typedef enum boolean_enum {
+   FALSE = 0,
+   TRUE = 1
+ }bool;
+
 typedef enum token_type_enum {
   OPERADOR = 0, //palabras reservadas del lenguaje ensamblador
   DIRECTIVA,  //indicadores de control para el ensamblador
@@ -44,7 +48,7 @@ typedef struct error_struct {
   string message;
   char * tokenptr;
 }Error;
-  
+
 /*
  *MENSAJES DE ERROR
  */
