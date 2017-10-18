@@ -7,7 +7,8 @@ Token * is_identifier( string * line_ptr ){
   char * identifier_start = VALUE( line_ptr );
   char * identifier_end = VALUE( line_ptr );
   Token * token = NULL;
-  /* recorrer la linea hasta que se agoten los digitos hexadecimales */
+  /* recorrer la linea hasta que se agoten los caracteres válidos de un identificador
+  * Debe empezar con una letra, seguida de más letras, digitos o guión bajo*/
   if( isalpha( VALUE( identifier_end ) ) ){
     do{
       /* avanzar un caracter sobre la linea */
