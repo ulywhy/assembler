@@ -10,7 +10,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-/* funtion to open source file */
+/* function to open source file */
 #include "libraries/file_open.c"
 /* binary tree to use as simbol table */
 #include "libraries/data_structures/bin_tree/bin_tree.h"
@@ -56,17 +56,18 @@ void identificador_free ( Identificador * idt_ptr )
 int main ( void ){
   //Token
   Token * token = NULL;
-
+  //source-file
   FILE * archivo_entrada = NULL;
   char * nombre_entrada = NULL;
-
+  //keyword table
   KeywordTable tabla_de_palabras_res = NULL;
   Keyword_t * keyword = NULL;
+  //symbol table
   BinaryTree * tabla_de_simbolos = NULL;
 
-  Identificador * identificador_ptr;
-  int numero_simbolo = 0;
-  char * tipo_token;
+  Identificador * identificador_ptr = NULL;
+
+  char * tipo_token = NULL;
   long long int location_counter = 0;
 
   /* iniciar parser */
@@ -85,7 +86,7 @@ int main ( void ){
   do
   {
     token = NULL;
-    token = get_token( tabla_de_palabras_res );
+    token = parser_next( tabla_de_palabras_res );
 
     if( token != NULL )
     {

@@ -1,13 +1,13 @@
 
-Token * get_token ( KeywordTable keyword_table )
-{  
+Token * parser_next( KeywordTable keyword_table )
+{
   Token * token = NULL;
-  
+
   size_t line_size = 0;
   /*
    * BUSCAR TOKEN VÁLIDO
    */
-  
+
   /* mientras no se encuentre token y haya lineas en el archivo */
   while( !feof( source_file ) && NULL == token )
   {
@@ -33,7 +33,7 @@ Token * get_token ( KeywordTable keyword_table )
     }
     /* avanzar todos los espacios */
     line_ptr = saltar_espacios( line_ptr );
-    
+
     /* si es letra */
     if( NULL == token && isalpha( VALUE( line_ptr ) ) )
     {
@@ -52,12 +52,12 @@ Token * get_token ( KeywordTable keyword_table )
         }
       }
     }else
-    /* 
+    /*
      * NÚMERO
      */
-    if( NULL == token && ( VALUE( line_ptr ) == '+' || 
+    if( NULL == token && ( VALUE( line_ptr ) == '+' ||
                            VALUE( line_ptr ) == '-' ||
-                           isdigit( VALUE( line_ptr ) ) 
+                           isdigit( VALUE( line_ptr ) )
                          ) ){
       /* si es decimal */
       token = is_decimal( &line_ptr);
@@ -80,7 +80,7 @@ Token * get_token ( KeywordTable keyword_table )
     /*
      * SÍMBOLO
      *           [ ] [ ! " # $ % & ' ( ) * + , . / : ; < = > ? @ \ ^ _ ` { | } ~ - ]
-     * SIMPLE O DOBLE 
+     * SIMPLE O DOBLE
      */
     if( NULL == token && ispunct( VALUE( line_ptr ) ) )
     {
@@ -88,7 +88,7 @@ Token * get_token ( KeywordTable keyword_table )
       token = is_symbol( &line_ptr );
       if( token != NULL ){
         switch( token-> value[0] ){
-          
+
           case '"':
             free( token-> value );
             free( token );
