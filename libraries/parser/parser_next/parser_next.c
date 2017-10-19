@@ -32,7 +32,7 @@ Token * parser_next( KeywordTable keyword_table )
       continue;
     }
     /* avanzar todos los espacios */
-    line_ptr = saltar_espacios( line_ptr );
+    line_ptr = skip_spaces( line_ptr );
 
     /* si es letra */
     if( NULL == token && isalpha( VALUE( line_ptr ) ) )

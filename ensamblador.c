@@ -17,7 +17,7 @@
 /* function to load keyword table */
 #include "libraries/keyword_loader/keyword_loader.h"
 /* function to get tokens */
-#include "libraries/parser/token/token.h"
+#include "libraries/parser/parser.h"
 
 #define BUCKET_SIZE 27
 
@@ -141,7 +141,7 @@ int main ( void ){
   }while( token != NULL);
 
   puts("_______tabla de simbolos________\n");
-  printf("  |%-20s|%-20s|%-20s|%-20s|%-20s|\n", "nombre", "type", "value", "uso", "direccion");
+  printf("  |%-15s|%-15s|%-15s|%-15s|%-15s|\n", "nombre", "type", "value", "uso", "direccion");
   tree_map( tabla_de_simbolos, (FUNCTION) identificador_print );
   puts("________________________________\n");
   /* liberar tabla de simbolos */

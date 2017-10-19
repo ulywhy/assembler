@@ -9,6 +9,7 @@
 
 #include "../../data_type.h" /* Token */
 #include "../lexical_analysis/lexical_analysis.h" /* preparando para hacer biblioteca */
+#include "util/skip_spaces.c"
 
 #define COMENTARIO ';'
 /*
@@ -21,16 +22,7 @@ string line_ptr_backup = NULL;
 
 long long int line_number = 0;
 
-string saltar_espacios( string line ){
-  /* mientras sea espacio o tab */
-  while( isblank( VALUE( line ) ) ){
-    /* apunta al siguiente caracter */
-    line++;
-  }
-  /* devolver line */
-  return line;
-}
-
+/* FUNCTION HEAD */
 string set_line( string line );
 
 Token * parser_next ( KeywordTable );
