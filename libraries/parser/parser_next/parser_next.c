@@ -1,13 +1,17 @@
 
 Token * parser_next( KeywordTable keyword_table )
 {
-  Token * token = NULL;
 
+  static char * line_ptr;
+  static char * line_ptr_backup;
   size_t line_size = 0;
+
+  FILE * source_file = parser.source_file;
+
+  Token * token = NULL;
   /*
    * BUSCAR TOKEN VÁLIDO
    */
-
   /* mientras no se encuentre token y haya lineas en el archivo */
   while( !feof( source_file ) && NULL == token )
   {
@@ -18,7 +22,7 @@ Token * parser_next( KeywordTable keyword_table )
       /* preparar linea */
       line_ptr_backup = set_line ( line_ptr );
       /* contar linea */
-      line_number++;
+      parser.line_number++;
     }
     if( END_LINE( VALUE( line_ptr ) ) ){
       /* liberar memoria de la linea usando el respaldo */

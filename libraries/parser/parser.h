@@ -7,20 +7,18 @@
 #include <ctype.h>/* ispunct, isdigit, isalpha, isxdigit, isblank */
 #include <string.h>/* strncmp, index */
 
-#include "../../data_type.h" /* Token */
-#include "../lexical_analysis/lexical_analysis.h" /* preparando para hacer biblioteca */
+#include "../data_type.h" /* Token */
+#include "lexical_analysis/lexical_analysis.h" /* preparando para hacer biblioteca */
 #include "util/skip_spaces.c"
 
 #define COMENTARIO ';'
-/*
- * VARIABLES GLOBALES
- */
-FILE * source_file = NULL;
 
-string line_ptr = NULL;
-string line_ptr_backup = NULL;
-
-long long int line_number = 0;
+typedef struct parser_struct{
+  /* source file */
+  FILE * source_file;
+  /* line conter */
+  long long int line_number;
+}Parser;
 
 /* FUNCTION HEAD */
 string set_line( string line );
@@ -30,6 +28,10 @@ Token * parser_next ( KeywordTable );
 void parser_free();
 
 bool parser_init( string source_file_name );
+
+/* create parser structure variable */
+static Parser parser; /* static makes it visible only
+                       * to functions in this file (meaning program)*/
 
 #include "parser_next/parser_next.c"
 #include "parser_free/parser_free.c"
